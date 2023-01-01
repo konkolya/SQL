@@ -13,7 +13,7 @@ FROM person
 WHERE address_street_name LIKE "Northwe%"
 ORDER BY address_number desc
 
---First witness is: Morty Schapiro,	Northwestern Dr	4919, license ID: 118009, SSN: 111564949
+--First witness is: Morty Schapiro (id:	14887,  4919 Northwestern Dr, license ID: 118009, SSN: 111564949)
 
 --Let's look for the second witness: 
 
@@ -22,4 +22,28 @@ FROM person
 WHERE name LIKE "%Annab%" AND address_street_name LIKE "%Franklin%"
 
 --Second witness is: Annabel Miller (id: 16371, 103 Franklin Ave, license ID: 490173, SSN: 318771143)
+
+--Let's check their interview:
+
+SELECT * 
+FROM interview
+WHERE person_id IN (14887, 16371);
+
+--SCHAPIRO: I heard a gunshot and then saw a man run out. He had a "Get Fit Now Gym" bag. The membership number on the bag started with "48Z". 
+--Only gold members have those bags. The man got into a car with a plate that included "H42W".
+--MILLER: I saw the murder happen, and I recognized the killer from my gym when I was working out last week on January the 9th.
+
+--Let's check gold members of the gym that have a membership number started with "48Z".
+
+SELECT *
+FROM get_fit_now_member
+WHERE membership_status="gold"
+AND id LIKE "%48Z%";
+
+--Two possible persons:
+--Joe GERMUSKA (id: 48Z7A, person id: 28819, membership start date: 20160305) OR
+--Jeremy BOWERS (id: 48Z55, person id: 67318, membership start date: 20160101)
+
+--Let's check who was in the gym on 9 January:
+
 

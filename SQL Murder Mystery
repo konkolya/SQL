@@ -1,0 +1,25 @@
+--First, I was to find out what happened on 15/01/2018 in SQL City:
+
+SELECT * FROM crime_scene_report
+WHERE date LIKE 20180115 AND city="SQL City";
+
+--Result: Murder. Security footage shows that there were 2 witnesses. 
+--The first witness lives at the last house on "Northwestern Dr". The second witness, named Annabel, lives somewhere on "Franklin Ave".
+
+-- Next, I was looking for the first witness in the person table (looking for the house with the highest number in the street):
+
+SELECT * 
+FROM person
+WHERE address_street_name LIKE "Northwe%"
+ORDER BY address_number desc
+
+--First witness is: Morty Schapiro,	Northwestern Dr	4919, license ID: 118009, SSN: 111564949
+
+--Let's look for the second witness: 
+
+SELECT * 
+FROM person
+WHERE name LIKE "%Annab%" AND address_street_name LIKE "%Franklin%"
+
+--Second witness is: Annabel Miller (id: 16371, 103 Franklin Ave, license ID: 490173, SSN: 318771143)
+

@@ -29,9 +29,9 @@ SELECT *
 FROM interview
 WHERE person_id IN (14887, 16371);
 
---SCHAPIRO: I heard a gunshot and then saw a man run out. He had a "Get Fit Now Gym" bag. The membership number on the bag started with "48Z". 
---Only gold members have those bags. The man got into a car with a plate that included "H42W".
---MILLER: I saw the murder happen, and I recognized the killer from my gym when I was working out last week on January the 9th.
+--SCHAPIRO: "I heard a gunshot and then saw a man run out. He had a "Get Fit Now Gym" bag. The membership number on the bag started with "48Z". 
+--Only gold members have those bags. The man got into a car with a plate that included "H42W"."
+--MILLER: "I saw the murder happen, and I recognized the killer from my gym when I was working out last week on January the 9th."
 
 --Let's check gold members of the gym that have a membership number started with "48Z".
 
@@ -44,6 +44,26 @@ AND id LIKE "%48Z%";
 --Joe GERMUSKA (id: 48Z7A, person id: 28819, membership start date: 20160305) OR
 --Jeremy BOWERS (id: 48Z55, person id: 67318, membership start date: 20160101)
 
---Let's check who was in the gym on 9 January:
+--Let's check who out of the two was there in the gym on 9 January:
 
+SELECT * 
+FROM get_fit_now_check_in WHERE membership_id in ("48Z7A", "48Z55")
 
+--Apparently, both of them (GERMUSKA checked in at 16:00 and out at 17:30, BOWERS checked in at 15:30 and checked out at 17:00). 
+--Let's find out then who owns a car with the given licence plate number:
+
+SELECT person.name, drivers_license.* 
+FROM drivers_license 
+JOIN person ON drivers_license.id = person.license_id
+WHERE plate_number LIKE "%H42W%"
+
+--It's BOWERS (id: 423327, age: 30, height: 70, eye: brown, hair: brown, licence plate: 0H42W2, car: Chevrolet Spark LS)
+
+INSERT INTO solution VALUES (1, 'Jeremy Bowers');
+        
+        SELECT value FROM solution;
+        
+--"Congrats, you found the murderer! But wait, there's more... 
+--If you think you're up for a challenge, try querying the interview transcript of the murderer to find the real villain behind this crime. 
+--If you feel especially confident in your SQL skills, try to complete this final step with no more than 2 queries. 
+--Use this same INSERT statement with your new suspect to check your answer."

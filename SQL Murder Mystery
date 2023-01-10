@@ -96,4 +96,8 @@ AND p.id IN (SELECT f.person_id
 
 --The mastermind is Miranda Priestly.
 
+INSERT INTO solution VALUES (1, 'Miranda Priestly');
+        
+        SELECT value FROM solution;
+
 --"Congrats, you found the brains behind the murder! Everyone in SQL City hails you as the greatest SQL detective of all time. Time to break out the champagne!"

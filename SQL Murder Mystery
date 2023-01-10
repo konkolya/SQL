@@ -1,3 +1,5 @@
+#SQL Murder Mystery
+
 --First, I was to find out what happened on 15/01/2018 in SQL City:
 
 SELECT * FROM crime_scene_report
@@ -77,4 +79,21 @@ WHERE person_id IN (67318)
 --She has red hair and she drives a Tesla Model S. 
 --I know that she attended the SQL Symphony Concert 3 times in December 2017.
 
+SELECT p.*, d.gender, d.height, d.hair_color, d.car_make, d.car_model
+FROM drivers_license as d
+JOIN person as p
+ON d.id = p.license_id
+--limiting the results to red haired females of the given height that drive a Tesla Model S
+WHERE d.gender = "female"
+	AND d.height BETWEEN 65 AND 67
+	AND d.hair_color = "red"
+	AND d.car_make = "Tesla"
+	AND d.car_model = "Model S"
+--further narrowing the search by looking for her personal ID number in the list of participants of the SQL Concert:
+AND p.id IN (SELECT f.person_id
+	        FROM facebook_event_checkin AS f
+		WHERE f.event_name = "SQL Symphony Concert");
 
+--The mastermind is Miranda Priestly.
+
+--"Congrats, you found the brains behind the murder! Everyone in SQL City hails you as the greatest SQL detective of all time. Time to break out the champagne!"

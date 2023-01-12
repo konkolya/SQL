@@ -33,7 +33,7 @@ SELECT * FROM Spotifydata;
 
 SELECT artist_name, track_name, popularity 
 FROM Spotifydata
-ORDER BY popularity desc
+ORDER BY popularity DESC
 LIMIT 15;
 
 

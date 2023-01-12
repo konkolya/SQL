@@ -1,4 +1,3 @@
-````sql
 CREATE TABLE shop (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, popularity INTEGER, pieces INTEGER);
 
 INSERT INTO shop VALUES (1, "books", 10, 8, 34);
@@ -16,22 +15,21 @@ INSERT INTO shop VALUES (12, "screens", 120, 7, 30);
 INSERT INTO shop VALUES (13, "phones", 30, 5, 10);
 INSERT INTO shop VALUES (14, "sodas", 5, 10, 400);
 INSERT INTO shop VALUES (15, "teas", 10, 10, 120);
-````
 
 --cheapest most popular items
 
-````sql
+
 SELECT * FROM shop WHERE popularity >9 ORDER BY price asc;
-````
+
 
 --5 most popular items
 
-````sql
+
 SELECT name, price, popularity FROM shop ORDER BY popularity desc limit 5;
-````
+
 
 --largest quantities of anything
 
-````sql
+
 SELECT name, pieces FROM shop ORDER BY pieces desc;
-````
+

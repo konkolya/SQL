@@ -1,5 +1,5 @@
 # SQL
-SQL Portfolio
+
 
 **Welcome to my SQL portfolio created while studying data analytics from various sources.**
 

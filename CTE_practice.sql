@@ -73,3 +73,21 @@ INSERT INTO BIT_DB.CityBikeLanes values(58,2011, 2021, "Beaver", 3.5, 2.5, "no")
 INSERT INTO BIT_DB.CityBikeLanes values(59,2008, 2021,"Kensington",4,4.9,"yes");
 INSERT INTO BIT_DB.CityBikeLanes values(60,2002, 2021,"Mouse",4.5,4.3,"no");
 
+--Let's say you work as a data analyst for your city, and your boss wants a list of all the bike lanes that have
+--an average safety rating of 4.0 or higher. She also wants to see the average safety rating for each of those 
+--bike lanes, and a label that says "Safe Lane".
+
+WITH SafeRoads AS (
+SELECT street,
+AVG (safetyrating) average_safety
+FROM CityBikeLanes c
+GROUP BY c.street
+)
+
+SELECT street,
+        average_safety,
+        "Safe Lane" AS tag
+FROM SafeRoads
+WHERE average_safety >= 4.0
+
+

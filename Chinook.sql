@@ -81,4 +81,25 @@ SELECT SUM(Total) AS total_sales
  
 --Write a query that includes the purchased track name with each invoice line ID.
 
+SELECT t.Name,
+       i.InvoiceLineId
+  FROM tracks t
+       JOIN
+       invoice_items i ON t.TrackId = i.TrackId;
+       
+--Write a query that includes the purchased track name AND artist name with each invoice line ID.
 
+SELECT t.Name,
+       ar.Name,
+       i.InvoiceLineId
+  FROM tracks t
+       JOIN
+       albums al ON t.AlbumId = al.AlbumId
+       JOIN
+       artists ar ON al.ArtistId = ar.ArtistId
+       JOIN
+       invoice_items i ON t.TrackId = i.TrackId;
+ 
+ --Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+ 
+ 

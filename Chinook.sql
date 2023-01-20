@@ -52,5 +52,33 @@ SELECT e.FirstName,
  
  --Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
  
+--Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+
+SELECT i.Total,
+       c.FirstName,
+       c.LastName,
+       c.Country,
+       e.FirstName,
+       e.LastName
+  FROM invoices i
+       JOIN
+       customers c ON i.CustomerId = c.CustomerId
+       JOIN
+       employees e ON c.SupportRepId = e.EmployeeId
+ GROUP BY c.LastName;
+
+--How many Invoices were there in 2009?
+
+SELECT COUNT( * ) 
+  FROM invoices
+ WHERE InvoiceDate LIKE "%2009%";
  
+--What are the total sales for 2009?
+
+SELECT SUM(Total) AS total_sales
+  FROM invoices
+ WHERE InvoiceDate LIKE "%2009%";
  
+--Write a query that includes the purchased track name with each invoice line ID.
+
+

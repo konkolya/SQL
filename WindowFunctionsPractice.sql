@@ -22,3 +22,12 @@ WHERE average_safety >= 4.0
 --the average safety rating for each lane
 --and a label with the recommendation as "Remove" (average < 2.5), "Leave As-Is" (average > 4), or "Improvements Needed"
 
+SELECT street, safetyrating, 
+AVG(safetyrating) OVER (PARTITION BY street) as "average_safety_rating",
+    CASE 
+        WHEN AVG(safetyrating) OVER (PARTITION BY safetyrating) <2.5 THEN "Remove"
+        WHEN AVG(safetyrating) OVER (PARTITION BY safetyrating) >=4 THEN "Leave As-Is"
+        ELSE "Improvements Needed"
+    END as "recommendation"
+FROM CityBikeLanes
+GROUP BY street;

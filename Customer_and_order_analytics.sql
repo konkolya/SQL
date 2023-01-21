@@ -50,8 +50,10 @@ SELECT SUM(Quantity) * price AS revenue,
 
 
 --How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
-SELECT COUNT (distinct cust.acctnum) AS customer_no, AVG (quantity*price) AS revenue
-FROM FebSales as feb
-LEFT JOIN customers as cust
-ON feb.orderid = cust.order_id
-WHERE feb.quantity > 2;
+
+SELECT COUNT(DISTINCT cust.acctnum) AS customer_no,
+       AVG(quantity * price) AS revenue
+  FROM FebSales AS feb
+       LEFT JOIN
+       customers AS cust ON feb.orderid = cust.order_id
+ WHERE feb.quantity > 2;

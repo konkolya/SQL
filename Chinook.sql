@@ -50,16 +50,14 @@ SELECT e.FirstName,
        invoices i ON c.customerID = i.invoiceId
  WHERE Title LIKE "%Agent%";
  
- --Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
- 
 --Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 
 SELECT i.Total,
        c.FirstName,
        c.LastName,
        c.Country,
-       e.FirstName,
-       e.LastName
+       e.FirstName AS sales_agents_first_name,
+       e.LastName AS sales_agents_last_name
   FROM invoices i
        JOIN
        customers c ON i.CustomerId = c.CustomerId
@@ -89,8 +87,8 @@ SELECT t.Name,
        
 --Write a query that includes the purchased track name AND artist name with each invoice line ID.
 
-SELECT t.Name,
-       ar.Name,
+SELECT t.Name AS track_name,
+       ar.Name AS artist_name,
        i.InvoiceLineId
   FROM tracks t
        JOIN
@@ -102,4 +100,41 @@ SELECT t.Name,
  
  --Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
  
+ SELECT t.name,
+       a.title,
+       g.name AS genre,
+       m.name AS media_type
+  FROM tracks t
+       JOIN
+       albums a ON t.AlbumId = a.AlbumId
+       JOIN
+       genres g ON t.GenreId = g.GenreId
+       JOIN
+       media_types m ON t.MediaTypeId = m.MediaTypeId;
+       
+--Show the total sales made by each sales agent.
+
+SELECT e.FirstName,
+       e.LastName,
+       SUM(i.Total) AS total_sales
+  FROM invoices i
+       JOIN
+       customers c ON i.CustomerId = c.CustomerId
+       JOIN
+       employees e ON c.SupportRepId = e.EmployeeId
+ GROUP BY e.LastName
+ ORDER BY total_sales DESC;
  
+ --Which sales agent made the most dollars in sales in 2009?
+ 
+ SELECT e.FirstName,
+       e.LastName,
+       SUM(i.Total) AS total_sales
+  FROM invoices i
+       JOIN
+       customers c ON i.CustomerId = c.CustomerId
+       JOIN
+       employees e ON c.SupportRepId = e.EmployeeId
+ WHERE i.InvoiceDate LIKE "%2009%"
+ GROUP BY e.LastName
+ ORDER BY total_sales DESC;

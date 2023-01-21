@@ -1,13 +1,14 @@
 --First, we'll create a table called CityBikeLanes in SQLite Studio so we can run queries on it later. 
 
 CREATE TABLE BIT_DB.CityBikeLanes (
-id integer primary key,
-year_installed year not null,
-year_updated year not null,
-street varchar not null,
-width_feet integer not null,
-safetyrating integer not null,
-protected varchar not null)
+    id             INTEGER PRIMARY KEY,
+    year_installed YEAR    NOT NULL,
+    year_updated   YEAR    NOT NULL,
+    street         VARCHAR NOT NULL,
+    width_feet     INTEGER NOT NULL,
+    safetyrating   INTEGER NOT NULL,
+    protected      VARCHAR NOT NULL
+);
 
 
 --Now that the CityBikeLanes table has been created, we need to insert some data into it.
@@ -78,16 +79,13 @@ INSERT INTO BIT_DB.CityBikeLanes values(60,2002, 2021,"Mouse",4.5,4.3,"no");
 --bike lanes, and a label that says "Safe Lane".
 
 WITH SafeRoads AS (
-SELECT street,
-AVG (safetyrating) average_safety
-FROM CityBikeLanes c
-GROUP BY c.street
+    SELECT street,
+           AVG(safetyrating) average_safety
+      FROM CityBikeLanes c
+     GROUP BY c.street
 )
-
 SELECT street,
-        average_safety,
-        "Safe Lane" AS tag
-FROM SafeRoads
-WHERE average_safety >= 4.0
-
-
+       average_safety,
+       "Safe Lane" AS tag
+  FROM SafeRoads
+ WHERE average_safety >= 4.0;
